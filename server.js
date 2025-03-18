@@ -9,9 +9,10 @@ require("./config/passport");
 const session = require("express-session");
 const passport = require("passport");
 const flash = require("connect-flash");
+const port = process.env.PORT || 8080;
 
 mongoose
-  .connect("mongodb://localhost:27017/GoogleDB")
+  .connect(process.env.MONGODB_CONNECTION)
   .then(() => {
     console.log("Connecting to MongoDB...");
   })
@@ -49,6 +50,6 @@ app.get("/", (req, res) => {
   return res.render("index", { user: req.user });
 });
 
-app.listen(8080, () => {
-  console.log("Server running on port 8080...");
+app.listen(port, () => {
+  console.log(`Server is running at Port ${port}...`);
 });
